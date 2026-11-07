@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#180817">
-  <title>Hi, Nivetha!</title>
+  <title>Happy Diwali 2026, Nivetha!</title>
   <style>
     :root {
       color-scheme: dark;
@@ -22,6 +22,7 @@
       min-height: 100svh;
       margin: 0;
       overflow-x: hidden;
+      scroll-behavior: smooth;
       color: var(--cream);
       background:
         radial-gradient(ellipse at 50% 46%, rgba(139, 29, 68, .38), transparent 49%),
@@ -29,6 +30,61 @@
         var(--night);
       font-family: "Segoe UI", "Trebuchet MS", sans-serif;
     }
+
+    .fireworks {
+      position: fixed;
+      z-index: 8;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .landing { position: relative; }
+
+    .landing:not(.unlocked) .scroll-cue,
+    .landing:not(.unlocked) .wishes-section,
+    .landing:not(.unlocked) .closing { display: none; }
+
+    .landing.unlocked .wishes-section,
+    .landing.unlocked .closing { animation: landingReveal .9s ease both; }
+
+    .light-string {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      height: 2.4rem;
+      justify-content: space-around;
+      pointer-events: none;
+    }
+
+    .light-string::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1.6rem;
+      border-bottom: 1px solid rgba(247, 204, 113, .45);
+      border-radius: 0 0 50% 50%;
+      content: "";
+    }
+
+    .light-string span {
+      position: relative;
+      width: .45rem;
+      height: .65rem;
+      margin-top: .9rem;
+      border-radius: 50% 50% 45% 45%;
+      background: #ffd879;
+      box-shadow: 0 0 .45rem .15rem rgba(255, 203, 91, .65);
+      animation: twinkle 1.8s ease-in-out infinite alternate;
+    }
+
+    .light-string span:nth-child(3n) { animation-delay: -.6s; background: #ff9a68; box-shadow: 0 0 .45rem .15rem rgba(255, 121, 71, .58); }
+    .light-string span:nth-child(3n + 1) { animation-delay: -1.2s; }
 
     body::before,
     body::after {
@@ -43,13 +99,13 @@
     }
 
     body::before { top: -13rem; left: -9rem; box-shadow: 0 0 0 2rem rgba(247, 204, 113, .025), 0 0 0 4rem rgba(247, 204, 113, .02); }
-    body::after { right: -12rem; bottom: -14rem; width: 27rem; height: 27rem; box-shadow: 0 0 0 2rem rgba(247, 204, 113, .025), 0 0 0 4rem rgba(247, 204, 113, .02); }
+    body::after { right: 0; bottom: -14rem; width: min(27rem, 100vw); height: 27rem; box-shadow: 0 0 0 2rem rgba(247, 204, 113, .025), 0 0 0 4rem rgba(247, 204, 113, .02); }
 
     .page {
       display: grid;
       min-height: 100svh;
       place-items: center;
-      padding: 2rem 1.15rem;
+      padding: 4.2rem 1.15rem 2.3rem;
     }
 
     .scene { width: min(100%, 37rem); text-align: center; }
@@ -320,6 +376,86 @@
 
     .footer { margin: .55rem 0 0; color: rgba(232, 201, 197, .6); font-size: .72rem; letter-spacing: .08em; }
 
+    .scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin-top: 1.2rem;
+      color: rgba(255, 244, 220, .66);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-decoration: none;
+    }
+
+    .scroll-cue span { color: var(--gold); animation: nudge 1.4s ease-in-out infinite; }
+
+    .wishes-section {
+      position: relative;
+      padding: 5.5rem 1.2rem 6rem;
+      overflow: hidden;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(91, 13, 46, .22) 15%, rgba(91, 13, 46, .22) 85%, transparent);
+    }
+
+    .wishes-section::before {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      width: min(85vw, 42rem);
+      height: min(85vw, 42rem);
+      transform: translateX(-50%);
+      border: 1px solid rgba(247, 204, 113, .08);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2rem rgba(247, 204, 113, .02), 0 0 0 4rem rgba(247, 204, 113, .015);
+      content: "";
+      pointer-events: none;
+    }
+
+    .wishes-inner { position: relative; width: min(100%, 64rem); margin: 0 auto; }
+    .section-kicker { margin: 0 0 .65rem; color: var(--gold); font-size: .7rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; }
+    .section-title { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 400; }
+    .section-description { max-width: 32rem; margin: .8rem auto 2.6rem; color: var(--muted); font-size: .95rem; line-height: 1.7; }
+
+    .wish-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      text-align: left;
+    }
+
+    .wish-card {
+      min-height: 13rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(247, 204, 113, .2);
+      border-radius: 1rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(91, 13, 46, .16));
+      box-shadow: 0 .8rem 2rem rgba(0, 0, 0, .12);
+      opacity: 0;
+      transform: translateY(1.6rem);
+      transition: opacity .65s ease, transform .65s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .wish-card.visible { opacity: 1; transform: translateY(0); }
+    .wish-card:nth-child(2) { transition-delay: .12s; }
+    .wish-card:nth-child(3) { transition-delay: .24s; }
+    .wish-card:hover { border-color: rgba(247, 204, 113, .52); box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .2), 0 0 1.4rem rgba(247, 204, 113, .07); }
+    .wish-icon { display: inline-grid; width: 2.8rem; height: 2.8rem; margin-bottom: 1rem; place-items: center; border: 1px solid rgba(247, 204, 113, .35); border-radius: 50%; color: var(--gold); background: rgba(247, 204, 113, .07); font-size: 1.3rem; }
+    .wish-card h3 { margin: 0 0 .55rem; color: var(--cream); font-family: Georgia, "Times New Roman", serif; font-size: 1.25rem; font-weight: 400; }
+    .wish-card p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.7; }
+
+    .closing {
+      padding: 3.5rem 1rem 2.4rem;
+      text-align: center;
+    }
+
+    .closing-lamp { display: inline-block; font-size: 2.3rem; filter: drop-shadow(0 0 .8rem rgba(255, 188, 69, .65)); animation: float 3s ease-in-out infinite; }
+    .closing h2 { margin: .6rem 0; color: var(--gold); font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 400; }
+    .closing p { margin: 0; color: rgba(232, 201, 197, .66); font-size: .8rem; }
+
+    @keyframes twinkle { from { opacity: .48; transform: scale(.82); } to { opacity: 1; transform: scale(1.15); } }
+    @keyframes landingReveal { from { opacity: 0; transform: translateY(1.2rem); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes nudge { 50% { transform: translateY(4px); } }
+    @keyframes float { 50% { transform: translateY(-7px); } }
     @keyframes glow { 50% { transform: scale(1.04); opacity: .7; } }
     @keyframes blink { to { opacity: 0; } }
     @keyframes burst {
@@ -328,16 +464,20 @@
     }
 
     @media (max-width: 420px) {
-      .page { padding: 1.4rem .8rem; }
+      .page { padding: 3.8rem .8rem 2rem; }
       .intro { margin-top: .65rem; font-size: .9rem; }
       .card-stage { min-height: 20rem; }
       .greeting-card { min-height: 24rem; }
       .lamp { height: 10.3rem; }
       .wish { min-height: 4.7rem; font-size: .74rem; }
+      .wishes-section { padding: 4rem 1rem; }
+      .wish-grid { grid-template-columns: 1fr; gap: .8rem; }
+      .wish-card { min-height: auto; padding: 1.2rem; }
+      .wish-icon { margin-bottom: .65rem; }
     }
 
     @media (max-height: 740px) and (min-width: 500px) {
-      .page { padding-top: 1rem; padding-bottom: 1rem; }
+      .page { padding-top: 3.6rem; padding-bottom: 1rem; }
       .intro { margin-bottom: .7rem; }
       .card-stage { min-height: 19rem; }
       .greeting-card { min-height: 24rem; }
@@ -345,12 +485,16 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .wish-card { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <section class="scene" aria-labelledby="page-title">
+  <canvas class="fireworks" id="fireworks" aria-hidden="true"></canvas>
+  <div class="landing">
+    <div class="light-string" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <main class="page">
+      <section class="scene" aria-labelledby="page-title">
       <div class="intro-copy" id="introCopy" aria-hidden="true">
         <p class="eyebrow">A little light, a lot of love</p>
         <h1 id="page-title">Happy <span>Diwali</span></h1>
@@ -379,14 +523,51 @@
         <button class="replay" id="replayButton" type="button">Replay the wishes ↻</button>
       </div>
       <p class="footer">May your home shine bright this Diwali</p>
+      <a class="scroll-cue" href="#wishes">Scroll for more wishes <span aria-hidden="true">↓</span></a>
+      </section>
+    </main>
+
+    <section class="wishes-section" id="wishes" aria-labelledby="wishes-title">
+      <div class="wishes-inner">
+        <p class="section-kicker">A festival of light</p>
+        <h2 class="section-title" id="wishes-title">Wishes for your home</h2>
+        <p class="section-description">May every little flame bring a little more joy. Sending Nivetha and your loved ones all the warmth and wonder of Diwali.</p>
+        <div class="wish-grid">
+          <article class="wish-card">
+            <span class="wish-icon" aria-hidden="true">✧</span>
+            <h3>Light &amp; happiness</h3>
+            <p>May every diya bring hope, peace and a bright new beginning to your home.</p>
+          </article>
+          <article class="wish-card">
+            <span class="wish-icon" aria-hidden="true">♡</span>
+            <h3>Love &amp; togetherness</h3>
+            <p>May laughter around the table and time with loved ones make this festival memorable.</p>
+          </article>
+          <article class="wish-card">
+            <span class="wish-icon" aria-hidden="true">✦</span>
+            <h3>Joy &amp; prosperity</h3>
+            <p>May the year ahead bring you good health, beautiful moments and every success.</p>
+          </article>
+        </div>
+      </div>
     </section>
-  </main>
+
+    <footer class="closing">
+      <span class="closing-lamp" aria-hidden="true">🪔</span>
+      <h2>இனிய தீபாவளி வாழ்த்துகள்</h2>
+      <p>With love to Nivetha, family &amp; friends · Diwali 2026</p>
+    </footer>
+  </div>
 
   <script>
     const scene = document.querySelector(".scene");
+    const landing = document.querySelector(".landing");
     const openButton = document.getElementById("openButton");
     const replayButton = document.getElementById("replayButton");
     const wishText = document.getElementById("wishText");
+    const fireworksCanvas = document.getElementById("fireworks");
+    const fireworksContext = fireworksCanvas.getContext("2d");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const wishes = [
       "May the diyas light your way to happiness, good health and success.",
       "May your home be filled with laughter, love and beautiful memories.",
@@ -394,6 +575,70 @@
     ];
     let typingTimer;
     let wishIndex = 0;
+    let particles = [];
+    let fireworksTimer;
+    let animationFrame;
+
+    function resizeFireworks() {
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      fireworksCanvas.width = Math.floor(window.innerWidth * pixelRatio);
+      fireworksCanvas.height = Math.floor(window.innerHeight * pixelRatio);
+      fireworksContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    }
+
+    function burstAt(x, y) {
+      const colors = ["#ffe29a", "#ffbd69", "#ff8c70", "#f7cc71"];
+      const count = window.innerWidth < 500 ? 34 : 58;
+      for (let index = 0; index < count; index += 1) {
+        const angle = (Math.PI * 2 * index) / count + Math.random() * .08;
+        const speed = 1.2 + Math.random() * 3.8;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 45 + Math.random() * 35,
+          maxLife: 80,
+          size: 1 + Math.random() * 2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+
+    function animateFireworks() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      fireworksContext.clearRect(0, 0, width, height);
+      particles = particles.filter(particle => particle.life > 0);
+      particles.forEach(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vy += .035;
+        particle.vx *= .985;
+        particle.life -= 1;
+        fireworksContext.globalAlpha = Math.max(0, particle.life / particle.maxLife);
+        fireworksContext.fillStyle = particle.color;
+        fireworksContext.shadowBlur = 12;
+        fireworksContext.shadowColor = particle.color;
+        fireworksContext.beginPath();
+        fireworksContext.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        fireworksContext.fill();
+      });
+      fireworksContext.globalAlpha = 1;
+      fireworksContext.shadowBlur = 0;
+      animationFrame = window.requestAnimationFrame(animateFireworks);
+    }
+
+    function startFireworks() {
+      if (prefersReducedMotion.matches) return;
+      window.clearInterval(fireworksTimer);
+      burstAt(window.innerWidth * (.25 + Math.random() * .5), window.innerHeight * (.15 + Math.random() * .28));
+      fireworksTimer = window.setInterval(() => {
+        if (!document.hidden) {
+          burstAt(window.innerWidth * (.15 + Math.random() * .7), window.innerHeight * (.12 + Math.random() * .35));
+        }
+      }, 2100);
+      if (!animationFrame) animateFireworks();
+    }
 
     function typeWish() {
       window.clearTimeout(typingTimer);
@@ -445,7 +690,9 @@
       scene.classList.add("opened");
       document.getElementById("introCopy").setAttribute("aria-hidden", "false");
       openButton.setAttribute("aria-expanded", "true");
+      window.setTimeout(() => landing.classList.add("unlocked"), 1500);
       makeSparkles();
+      startFireworks();
       typeWish();
     }
 
@@ -454,7 +701,22 @@
       wishIndex = 0;
       typeWish();
       makeSparkles();
+      startFireworks();
     });
+
+    resizeFireworks();
+    window.addEventListener("resize", resizeFireworks);
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .18 });
+
+    document.querySelectorAll(".wish-card").forEach(card => revealObserver.observe(card));
   </script>
 </body>
 </html>
